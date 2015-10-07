@@ -22,7 +22,48 @@
 		<h1>Formul&aacute;rios</h1>
 		<form method="POST" method="form">
 			<h2>Projetos</h2>
-			<input type="text" placeholder="Nome Projeto"/><br>
+			<input type="text" name="titulo" placeholder="Nome do Evento"/><br>
+			<input type="text" name="responsavel" placeholder="Nome do Palestrante"><br>
+			<input type="text" name="categoria" placeholder="Categoria do Evento"><br>
+			<label for="duracao">Duração do Evento: </label><input type="number" name="duracao" value="1" min="1" max="15" step="1"/><br>
+			<label for="data">Data do Evento: </label><select id="data" name="data">
+				<option value="1">05/11</option>
+				<option value="2">06/11</option>
+				<option value="3">07/11</option>
+			</select><br>
+			<label for="horario">Horario: </label><select id="horario" name="horario">
+				<option value="1">8</option>
+				<option value="2">9</option>
+				<option value="3">10</option>
+				<option value="4">11</option>
+				<option value="5">12</option>
+				<option value="6">13</option>
+				<option value="7">14</option>
+				<option value="8">15</option>
+				<option value="9">16</option>
+				<option value="10">17</option>
+				<option value="11">18</option>
+				<option value="12">19</option>
+				<option value="13">20</option>
+				<option value="14">21</option>
+			</select><br>
+			<label for="local">Local: </label><select id="local" name="local">
+				<option value="1">local 8</option>
+				<option value="2">local 9</option>
+				<option value="3">local 10</option>
+				<option value="4">local 11</option>
+				<option value="5">local 12</option>
+				<option value="6">local 13</option>
+				<option value="7">local 14</option>
+				<option value="8">local 15</option>
+				<option value="9">local 16</option>
+				<option value="10">local 17</option>
+				<option value="11">local 18</option>
+				<option value="12">local 19</option>
+				<option value="13">local 20</option>
+				<option value="14">local 21</option>
+			</select><br>
+			<textarea name="descricao" placeholder="Descricao"></textarea><br>
 			<input type="submit" value="Salvar projeto"/>
 		</form>
 	</body>
