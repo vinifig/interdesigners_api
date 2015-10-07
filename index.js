@@ -81,9 +81,14 @@ var server = app.listen("80",function(){
 	var atualiza = function(){
 	 	connection.query("SELECT * FROM Eventos", function(err, rows, fields){
 			eventos = Array();
-			for(var i = 0; i < rows.length; i++){
-				eventos[i] = rows[i];
-				eventos[i].id = eventos[i].id - 1;
+			try{
+				for(var i = 0; i < rows.length; i++){
+					eventos[i] = rows[i];
+					eventos[i].id = eventos[i].id - 1;
+				}
+			}
+			catch(err){
+				console.error(err);
 			}
 		});
 		connection.query("SELECT local FROM Locais", function(err, rows, fields){
