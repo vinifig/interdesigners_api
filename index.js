@@ -1,66 +1,81 @@
-var fs = require("fs"),
-	Mongoose = require('mongoose'),
-	db = Mongoose.connection,
-	Schema = Mongoose.Schema,
-	ObjectId = Schema.ObjectId,
-	Post, PostTest;
+var express = require("express");
+var fs = require("fs");
+var app = express();
+var mysql = require("mysql");
+var cors = require("cors");
 
-var get = function(){
-	/*try{
-		return fs.readFileSync("./postsData.json");
-	}catch(e){
-		return e.toString();
-	}*/
-	var Query = Post.readAll(null);
-	return Query;
-}
+var host, port;
 
-var post = function(title, message){
-	var HelloWorld = new Post({
-		title : "HELLO, WORLD!",
-		message : "This is a Mongo World"	
-	});
-	
-	HelloWorld.save(function(err, thor){
-		if(err) return console.error(err);
-	});
-	return (HelloWorld.toString());
-}
+var eventos, datas, horarios, locais;
 
-module.exports.get = get;
-module.exports.post = post;
-
-
-
-db.on("error",function(){
-	console.log("teste");
+var connection = mysql.createConnection({
+	host     : '127.0.0.1',
+	user     :  'root',
+	password : '',
+	database : 'interdesigners'
 });
 
-db.once("open", function(){
-	console.log("Conectou");
+connection.connect();
+
+app.use(cors());
+
+app.get("/", function( req, res){
+	atualiza();
 	
-
-	PostTest = new Schema({
-	        title   : String,
-	        message : String
-	});
-
-	PostTest.statics.readAll = function(callback){
-		return this.find({ hasCreditCookie: true }, callback)
-	}
-	
-	Post = Mongoose.model("Post",PostTest);
-
-	var HelloWorld = new Post({
-		title : "HELLO, WORLD!",
-		message : "This is a Mongo World"	
-	});
-	
-	HelloWorld.save(function(err, hello){
-		if(err) return console.error(err);
-		console.dir(hello);
-	});
-
+	res.end(JSON.stringify({
+		'datas' : datas,
+		'horarios' : horarios,
+		'eventos' : eventos,
+		'locais' : locais,
+		'result' : true
+	}));
 });
-Mongoose.connect("mongodb://localhost/test");
 
+app.get("/form",function( req, res){
+	res.end(fs.readFileSync('www/form.html'));
+});
+
+app.post("/form",function( req, res){
+	
+	res.end(fs.readFileSync('www/form.html'));
+});
+
+var server = app.listen("80",function(){
+	host = server.address().address;
+	port = server.address().port;
+	console.log("\nHost: " + host + "\nPorta: " + port);
+});
+
+var atualiza = function(){
+ 	connection.query("SELECT * FROM Eventos", function(err, rows, fields){
+		eventos = Array();
+		for(var i = 0; i < rows.length; i++){
+			eventos[i] = rows[i];
+			eventos[i].id = eventos[i].id - 1;
+		}
+	});
+	connection.query("SELECT local FROM Locais", function(err, rows, fields){
+		locais = Array();
+		for(var i = 0; i < rows.length; i++){
+			locais[i] = rows[i].local;
+		}
+	});
+	connection.query("SELECT * FROM Dias", function(e,rows,f){
+		datas = Array();
+		for(var i = 0; i < rows.length; i++){
+			datas[i] = rows[i];
+			datas[i].id = datas[i].id - 1;
+		}
+	});
+	connection.query("SELECT * FROM Horarios", function(e,rows,f){
+		horarios = Array();
+		for(var i = 0; i < rows.length; i++){
+			horarios[i] = rows[i];
+			horarios[i].id = horarios[i].id - 1;
+		}
+	});
+}
+
+
+
+atualiza();
