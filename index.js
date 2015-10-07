@@ -73,6 +73,7 @@ var server = app.listen("80",function(){
 			if(err !== undefined)
 				return console.error(err);
 			console.log(result);
+			atualiza();
 		});
 	}
 
