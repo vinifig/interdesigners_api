@@ -1,0 +1,82 @@
+{
+	"datas" :
+	    [
+	      { 
+	        "id": 0,
+	        "val" : "22/11"     
+	      },
+	      { 
+	        "id": 1,
+	        "val" : "23/11"     
+	      },
+	      { 
+	        "id": 2,
+	        "val" : "24/11"     
+	      }
+	    ],
+
+	"horarios" :
+	    [
+	      { 
+	        "id": 0,
+	        "val" : "08h"     
+	      },
+	      { 
+	        "id": 1,
+	        "val" : "09h"     
+	      },
+	      { 
+	        "id": 2,
+	        "val" : "10h"     
+	      }
+	    ],
+
+	"locais" : ["guilhermao", "ltia", "sei lá"],
+	  
+	"eventos" : [
+	    {
+	      "id" : 0,
+	      "titulo" : "Vinicius",
+	      "descricao" : "Teste",
+	      "data" : "0",
+	      "horario" : "0",
+	      "responsavel" : "Vinicius Figueiredo Rodrigues",
+	      "categoria" : "email",
+	      "local" : "2",
+	      "duracao" : {
+	        "horas" : "2",
+	        "minutos" : "30"
+	      }
+	    },
+	    {
+	      "id" : 1,
+	      "titulo" : "Vivi",
+	      "descricao" : "Teste",
+	      "data" : "1",
+	      "horario" : "2",
+	      "responsavel" : "Vinicius Figueiredo Rodrigues",
+	      "categoria" : "email",
+	      "local" : "1",
+	      "duracao" : {
+	        "horas" : "2",
+	        "minutos" : "30"
+	      }
+	    },
+	    {
+	      "id" : 2,
+	      "titulo" : "Vinicius",
+	      "descricao" : "Teste",
+	      "data" : "2",
+	      "horario" : "1",
+	      "responsavel" : "Vinicius Figueiredo Rodrigues",
+	      "categoria" : "email",
+	      "local" : "0",
+	      "duracao" : {
+	        "horas" : "0",
+	        "minutos" : "30"
+	      }
+	    }
+
+	  ],
+	  "result" : true
+}

@@ -1,0 +1,11 @@
+{
+  "name": "interdesigners_api",
+  "version": "1.0.0",
+  "description": "API para os aplicativos do interdesigners",
+  "main": "index.js",
+  "scripts": {
+    "test": "node 'test.js'"
+  },
+  "author": "Vinicius Figueiredo Rodrigues",
+  "license": "MIT"
+}
