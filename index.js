@@ -57,7 +57,7 @@ app.post("/form",function( req, res){
 
 // INICIALIZACAO DO SERVER
 
-var server = app.listen("8081",function(){
+var server = app.listen("80",function(){
 	host = server.address().address;
 	port = server.address().port;
 	console.log("\nHost: " + host + "\nPorta: " + port);
