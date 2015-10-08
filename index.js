@@ -86,6 +86,8 @@ var server = app.listen("80",function(){
 				for(var i = 0; i < rows.length; i++){
 					eventos[i] = rows[i];
 					eventos[i].id = eventos[i].id - 1;
+					eventos[i].data = eventos[i].data - 1;
+					eventos[i].horario = eventos[i].horario - 1;
 				}
 			}
 			catch(err){
