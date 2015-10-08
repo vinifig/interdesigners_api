@@ -88,6 +88,7 @@ var server = app.listen("80",function(){
 					eventos[i].id = eventos[i].id - 1;
 					eventos[i].data = eventos[i].data - 1;
 					eventos[i].horario = eventos[i].horario - 1;
+					eventos[i].local = eventos[i].local - 1;
 				}
 			}
 			catch(err){
