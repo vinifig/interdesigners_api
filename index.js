@@ -8,7 +8,10 @@ var bodyParser = require("body-parser");
 var app = express();
 var host, port;
 
-var eventos, datas, horarios, locais;
+var eventos = [],
+  datas = [],
+  horarios = [],
+  locais = [];
 
 // CONECTANDO AO BANCO DE DADOS
 
@@ -16,7 +19,7 @@ var connection = mysql.createConnection({
 	host     : '127.0.0.1',
 	user     :  'root',
 	password : '',
-	database : 'interdesigners_teste'
+	database : 'interdesigners'
 });
 
 connection.connect();
@@ -25,6 +28,9 @@ connection.connect();
 // CONFIGURANDO SERVIDOR
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+//GETS
+
 
 // LIGANDO API
 
@@ -47,6 +53,29 @@ app.get("/form",function( req, res, next){
 	res.end(fs.readFileSync('www/form.html'));
 });
 
+// LIGANDO A LISTAGEM
+
+
+app.get("/list", function(req, res, next){
+	res.writeHead(200,{"content-type":"text/html;charset=UTF8;"});
+	var template = fs.readFileSync('www/list.html');
+	var templateList = fs.readFileSync("www/templateList.html");
+	var lista = "";
+	for(var i = 0; i < eventos.length; i++){
+		lista = lista.concat(
+			templateList.toString()
+				.replace("<<nome>>", eventos[i].titulo)
+				.replace("<<responsavel>>", eventos[i].descricao.substr(0,20))
+				.replace("<<id>>", eventos[i].id)
+				.replace("<<id>>", eventos[i].id)
+		);
+	}
+	res.end(template.toString().replace("<<TABELA>>", lista));
+});
+
+
+// POST
+
 
 app.post("/form",function( req, res){
 	res.writeHead(200,{"content-type":"text/html;charset=UTF8;"});
@@ -57,7 +86,7 @@ app.post("/form",function( req, res){
 
 // INICIALIZACAO DO SERVER
 
-var server = app.listen("80",function(){
+var server = app.listen("8080",function(){
 	host = server.address().address;
 	port = server.address().port;
 	console.log("\nHost: " + host + "\nPorta: " + port);
@@ -81,7 +110,6 @@ var server = app.listen("80",function(){
 
 	var atualiza = function(){
 	 	connection.query("SELECT * FROM Eventos", function(err, rows, fields){
-			eventos = Array();
 			try{
 				for(var i = 0; i < rows.length; i++){
 					eventos[i] = rows[i];
@@ -96,24 +124,27 @@ var server = app.listen("80",function(){
 			}
 		});
 		connection.query("SELECT local FROM Locais", function(err, rows, fields){
-			locais = Array();
-			for(var i = 0; i < rows.length; i++){
-				locais[i] = rows[i].local;
-			}
+			try{
+				for(var i = 0; i < rows.length; i++){
+					locais[i] = rows[i].local;
+				}
+			}catch(e){}
 		});
 		connection.query("SELECT * FROM Dias", function(e,rows,f){
-			datas = Array();
-			for(var i = 0; i < rows.length; i++){
-				datas[i] = rows[i];
-				datas[i].id = datas[i].id - 1;
-			}
+			try{
+				for(var i = 0; i < rows.length; i++){
+					datas[i] = rows[i];
+					datas[i].id = datas[i].id - 1;
+				}
+			}catch(e){}
 		});
 		connection.query("SELECT * FROM Horarios", function(e,rows,f){
-			horarios = Array();
-			for(var i = 0; i < rows.length; i++){
-				horarios[i] = rows[i];
-				horarios[i].id = horarios[i].id - 1;
-			}
+			try{
+				for(var i = 0; i < rows.length; i++){
+					horarios[i] = rows[i];
+					horarios[i].id = horarios[i].id - 1;
+				}
+			}catch(e){}
 		});
 	}
 
