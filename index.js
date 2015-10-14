@@ -73,6 +73,17 @@ app.get("/list", function(req, res, next){
 	res.end(template.toString().replace("<<TABELA>>", lista));
 });
 
+app.get("/edit/:id",function(req, res, next){
+	res.writeHead(200,{"content-type":"text/html;charset=UTF8;"});
+	var templateForm = fs.readFileSync("www/formEdit.html").toString();
+	var evento = getEventID(req.param("id"));
+	if(evento === -1){
+		res.end("Não foi encontrado nenhum item, <a href='../list'>voltar</a>");
+	}
+	res.end(templateForm);
+	// res.end("tagId is set to " + req.param("id"));
+});
+
 
 // POST
 
@@ -148,6 +159,16 @@ var server = app.listen("8080",function(){
 		});
 	}
 
+//FUNÇOES AUXILIARES
+
+var getEventID = function(id){
+	for(var i = 0; i < eventos.length && i < id; i++ ){
+		console.log(eventos[i].id + " e " + id);
+		if(eventos[i].id == id)
+			return i;
+	}
+	return -1;
+}
 
 
 atualiza();
