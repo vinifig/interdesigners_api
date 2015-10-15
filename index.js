@@ -10,6 +10,11 @@ app.configure(function () {
 
 app.get('/events', event.findAll);
 app.get('/event/:id', event.findById);
+
+app.get("/event/image/:id", event.getImage);
+
+app.get("/event/imagefile/:id", event.getImageFile);
+
 app.post('/event', event.addEvent);
 app.put('/events/:id', event.updateEvent);
 app.delete('/events/:id', event.deleteEvent);
