@@ -46,54 +46,21 @@ app.get("/api", function( req, res){
 	}));
 });
 
-// LIGANDO FORMULARIO
+// LIGANDO GET DE IMAGE
 
-app.get("/form",function( req, res, next){
-	res.writeHead(200,{"content-type":"text/html;charset=UTF8;"});
-	res.end(fs.readFileSync('www/form.html'));
-});
-
-// LIGANDO A LISTAGEM
-
-
-app.get("/list", function(req, res, next){
-	res.writeHead(200,{"content-type":"text/html;charset=UTF8;"});
-	var template = fs.readFileSync('www/list.html');
-	var templateList = fs.readFileSync("www/templateList.html");
-	var lista = "";
-	for(var i = 0; i < eventos.length; i++){
-		lista = lista.concat(
-			templateList.toString()
-				.replace("<<nome>>", eventos[i].titulo)
-				.replace("<<responsavel>>", eventos[i].descricao.substr(0,20))
-				.replace("<<id>>", eventos[i].id)
-				.replace("<<id>>", eventos[i].id)
-		);
+app.get("/image/:id", function(req, res){
+	res.writeHead(200,{"content-type":"text/plain;charset=UTF8;"});
+	// res.writeHead(200,{"content-type":"image/jpeg;charset=UTF8;"});
+	var url = req.param("id")+".jpg";
+	if(fs.readdirSync("www/images").indexOf(url) == -1){
+		url = "default.jpg";
 	}
-	res.end(template.toString().replace("<<TABELA>>", lista));
+	url = "www/images/" + url;
+	// var image = new Buffer(fs.readFileSync(url).toString(), "binary").toString("base64");
+	var image = fs.readFileSync(url).toString("base64");
+	res.end(image);
 });
 
-app.get("/edit/:id",function(req, res, next){
-	res.writeHead(200,{"content-type":"text/html;charset=UTF8;"});
-	var templateForm = fs.readFileSync("www/formEdit.html").toString();
-	var evento = getEventID(req.param("id"));
-	if(evento === -1){
-		res.end("Não foi encontrado nenhum item, <a href='../list'>voltar</a>");
-	}
-	res.end(templateForm);
-	// res.end("tagId is set to " + req.param("id"));
-});
-
-
-// POST
-
-
-app.post("/form",function( req, res){
-	res.writeHead(200,{"content-type":"text/html;charset=UTF8;"});
-	var resultado =	insere(req.body);
-
-	res.end(fs.readFileSync('www/form.html'));
-});
 
 // INICIALIZACAO DO SERVER
 
