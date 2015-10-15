@@ -1,5 +1,5 @@
 var express = require('express'),
-    event = require('./routes/events');
+    event = require('./lib/events');
 
 var app = express();
 
