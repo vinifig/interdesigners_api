@@ -62,6 +62,20 @@ app.get("/image/:id", function(req, res){
 });
 
 
+app.get("/imagefile/:id", function(req, res){
+	// res.writeHead(200,{"content-type":"text/plain;charset=UTF8;"});
+	res.writeHead(200,{"content-type":"image/jpeg;charset=UTF8;"});
+	var url = req.param("id")+".jpg";
+	if(fs.readdirSync("www/images").indexOf(url) == -1){
+		url = "default.jpg";
+	}
+	url = "www/images/" + url;
+	// var image = new Buffer(fs.readFileSync(url).toString(), "binary").toString("base64");
+	var image = fs.readFileSync(url);
+	res.end(image);
+});
+
+
 // INICIALIZACAO DO SERVER
 
 var server = app.listen("8080",function(){
