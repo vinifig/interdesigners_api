@@ -11,9 +11,9 @@ app.use(bodyParser.json());
 app.get('/api/events', event.findAll);
 app.get('/api/events/:id', event.findById);
 
-app.get("/api/event/image/:id", event.getImage);
+app.get("/api/events/image/:id", event.getImage);
 
-app.get("/api/event/imagefile/:id", event.getImageFile);
+app.get("/api/events/imagefile/:id", event.getImageFile);
 
 app.post('/events', event.addEvent);
 app.put('/events/:id', event.updateEvent);
