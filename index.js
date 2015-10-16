@@ -8,11 +8,13 @@ var app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// tudo em /api/ está exposto no nginx, os outros somente interno
+
 app.get('/api/events', event.findAll);
 app.get('/api/events/:id', event.findById);
 
+// imagem
 app.get("/api/events/image/:id", event.getImage);
-
 app.get("/api/events/imagefile/:id", event.getImageFile);
 
 app.post('/events', event.addEvent);
