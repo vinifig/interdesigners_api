@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 // tudo em /api/ está exposto no nginx, os outros somente interno
 
 app.get('/api/events', event.findAll);
-app.get('/api/events/:id', event.findById);
+//app.get('/api/events/:id', event.findById);
 
 // imagem
 app.get("/api/events/image/:id", event.getImage);
