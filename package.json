@@ -6,9 +6,11 @@
   "scripts": {
     "test": "node 'test.js'"
   },
-  "author": "Vinicius Figueiredo Rodrigues, Gabriel Oliveira",
+  "author": "Vinicius Figueiredo Rodrigues",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.14.1",
+    "cors": "^2.7.1",
     "express": "^4.13.3"
   },
   "devDependencies": {},
