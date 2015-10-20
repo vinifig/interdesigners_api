@@ -2,6 +2,7 @@ var express = require('express'),
     event = require('./lib/events');
 var cors = require("cors");
 var bodyParser = require("body-parser");
+var config = require('./lib/config');
 
 var app = express();
 
@@ -21,5 +22,5 @@ app.post('/events', event.addEvent);
 app.put('/events/:id', event.updateEvent);
 app.delete('/events/:id', event.deleteEvent);
 
-app.listen(3000);
-console.log('Listening on port 3000...');
+app.listen(config.port);
+console.log('Listening on port ' + config.port + '...');
